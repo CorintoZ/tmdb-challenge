@@ -1,9 +1,7 @@
+import PopularList from './components/PopularList';
 
 function App() {
-  return (
-    <div className="App">
-    </div>
-  );
+  return <PopularList />;
 }
 
 export default App;
