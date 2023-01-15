@@ -19,7 +19,7 @@ const ShowItem = ({
           alt={`poster-${title}`}
         />
 
-        <p className="top-4 left-20 absolute text-8xl italic font-medium tracking-widest">
+        <p className="top-4 left-20 absolute text-4xl italic font-medium tracking-widest md:text-8xl">
           {title ? title : name}
         </p>
         {vote_average && (
