@@ -21,5 +21,5 @@ export const ShowProvider: FC = ({ children }) => {
 export type ShowContextType = {
   shows: ShowI[];
   setShows: (shows: ShowI[]) => void;
-  getShow: (showId: number) => Promise<Partial<ShowI> | undefined>;
+  getShow: (showId: number) => Promise<ShowI | undefined>;
 };

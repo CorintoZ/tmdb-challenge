@@ -1,37 +1,32 @@
-import { useEffect, useState } from 'react';
+import { Carousel } from 'flowbite-react';
+import { useContext, useEffect } from 'react';
+import { useLoaderData } from 'react-router-dom';
 
 import { fetchTrending } from '../api/tmdb';
-import { Show } from '../models/Show';
+import { ShowContext, ShowContextType } from '../contexts/show.context';
+import { ShowI, ShowsI } from '../models/Show';
 import ShowItem from './ShowItem';
 
+export const rootLoader = async (): Promise<ShowsI> => {
+  const results = await fetchTrending();
+  if (!results) throw new Error('Not available shows');
+  return results;
+};
+
 const PopularList = () => {
-  const [popularResults, setPopularResults] = useState<Partial<Show>[]>([]);
+  const { results: shows } = useLoaderData() as ShowsI;
+  const { setShows } = useContext(ShowContext) as ShowContextType;
+
   useEffect(() => {
-    fetchTrending().then((trending) => {
-      const results = trending.results as Show[];
-      setPopularResults(
-        results.map(({ id, title, name, backdrop_path, vote_average }) => ({
-          id,
-          title,
-          name,
-          backdrop_path,
-          vote_average,
-        })),
-      );
-    });
+    setShows(shows);
   }, []);
 
   return (
-    <div className="carousel w-full h-screen">
-      {popularResults.map((result, index) => (
-        <ShowItem
-          index={index}
-          length={popularResults.length}
-          key={result.id}
-          {...result}
-        />
+    <Carousel>
+      {shows.map((props) => (
+        <ShowItem key={props.id} {...props} />
       ))}
-    </div>
+    </Carousel>
   );
 };
 

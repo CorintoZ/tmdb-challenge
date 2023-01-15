@@ -1,7 +1,11 @@
-import PopularList from './components/PopularList';
+import { Outlet } from 'react-router-dom';
 
 function App() {
-  return <PopularList />;
+  return (
+    <>
+      <Outlet></Outlet>
+    </>
+  );
 }
 
 export default App;
